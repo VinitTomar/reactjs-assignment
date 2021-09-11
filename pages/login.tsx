@@ -23,7 +23,7 @@ const Login: NextPage = () => {
   }
 
   return (
-    <Card label="Login">
+    <Card label="Login" className="from-purple-400 via-pink-500 to-red-500">
       <Formik
         initialValues={{
           name: '',
@@ -37,7 +37,7 @@ const Login: NextPage = () => {
         }
       >
         {({isSubmitting}) => (
-          <Form>
+          <Form className="w-full">
             <Input type="text" label="name" name="name" id="name"></Input>
             <Input type="password" label="password" name="pass" id="pass"></Input>
             <button type="submit" disabled={isSubmitting} className="w-full rounded-md py-1 bg-indigo-500 text-white">Login</button>
