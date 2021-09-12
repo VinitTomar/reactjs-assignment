@@ -4,9 +4,10 @@ import { useState } from "react";
 
 export default function Input(props: any) {
 
-  const { label, classes, ...inputProps } = props;
+  const { label, classes, isValidating, validate, ...inputProps } = props;
   const [labelAtTop, setLabelAtTop] = useState(false);
-  const [field, meta] = useField(inputProps);
+  const [field, meta] = useField({...inputProps, validate});
+  
   let hasError = () => {
     return !!meta.error && !!meta.touched;
   };
@@ -58,7 +59,7 @@ export default function Input(props: any) {
       <input
         {...field}
         {...inputProps}  
-      
+        autoComplete="off"
         className={getInputFiledClasses()}
         
         onBlur={(e) => {
@@ -68,7 +69,10 @@ export default function Input(props: any) {
         onFocus={() => updateLabelAtTop(true)}
       />
       {
-        hasError() ? <div className="absolute text-red-500 text-xs">{meta.error}</div> : null
+        hasError() && !isValidating ? <div className="absolute text-red-500 text-xs">{meta.error}</div> : null
+      }
+      {
+        isValidating ? <div className="absolute text-xs text-gray-500">{ isValidating }</div> : null
       }
     </div>
   );
